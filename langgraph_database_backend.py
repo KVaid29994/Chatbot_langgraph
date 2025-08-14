@@ -30,13 +30,23 @@ graph.add_edge("chat_node", END)
 
 chatbot = graph.compile(checkpointer=checkpointer)
 
+
+def ret_all_threads():
+    all_threads = set()
+    for checkpoint in checkpointer.list(None):
+        all_threads.add(checkpoint.config['configurable']['thread_id'])
+
+    return (list(all_threads))
+
+
 # Test code under main guard
 if __name__ == "__main__":
-    config = {'configurable': {'thread_id': '123'}}
+    config = {'configurable': {'thread_id': '124'}}
     for message_chunk, metadata in chatbot.stream(
-        {'messages': [HumanMessage(content="What is the recipe to make pasta")]},
+        {'messages': [HumanMessage(content="what is my name?")]},
         config=config,
         stream_mode="messages"
     ):
         if message_chunk.content:
             print(message_chunk.content, end=' ', flush=True)
+
