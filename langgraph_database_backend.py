@@ -2,9 +2,10 @@ from langgraph.graph import START, END, StateGraph
 from typing import TypedDict, Annotated
 from langchain_core.messages import BaseMessage, HumanMessage
 from langchain_openai import ChatOpenAI
-from langgraph.checkpoint.memory import InMemorySaver
+from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph.message import add_messages
 from dotenv import load_dotenv
+import sqlite3
 
 load_dotenv()
 
@@ -20,8 +21,10 @@ def chat_node(state: ChatState) -> ChatState:
 
 graph = StateGraph(ChatState)
 
-checkpointer = InMemorySaver()
-graph.add_node("chat_node", chat_node)
+connection = sqlite3.connect(database="chatbot.db", check_same_thread=False)
+checkpointer = SqliteSaver(conn = connection)
+
+graph.add_node("chat_node", chat_node)  
 graph.add_edge(START, "chat_node")
 graph.add_edge("chat_node", END)
 
