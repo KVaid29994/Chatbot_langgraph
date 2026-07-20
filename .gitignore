@@ -1,0 +1,44 @@
+# Environment variables
+
+.env
+
+# Python cache
+
+**pycache**/
+*.py[cod]
+
+# Virtual environments
+
+venv/
+.venv/
+env/
+# SQLite
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+# SQLite database files
+
+chatbot.db
+*.db
+*.sqlite
+*.sqlite3
+
+# Streamlit cache
+
+.streamlit/
+
+# Jupyter checkpoints
+
+.ipynb_checkpoints/
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# IDE settings
+
+.vscode/
+.idea/
